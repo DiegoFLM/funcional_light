@@ -81,6 +81,9 @@ function putFirstOnLast(list){
 //console.log(putFirstOnLast([5, 4, 3, 2, 1]));
 //console.log(lista);
 
+
+//Primera parte Taller:
+
 /*longitud: array -> number
 Propósito: Recibe una lista y devuelve la cantidad de elementos que tiene (su longitud). 
 function longitud (list){Cuerpo de la función}
@@ -95,7 +98,6 @@ console.log("5.longitud([4]): ", longitud([4])); // 1
 console.log("6.longitud([2, 5, 3, 8]): ", longitud([2, 5, 3, 8]));  // 4
 console.log("7.longitud([2, 0, 6, 7]): ", longitud([2, 0, 6, 7])); // 4
 */
-
 function longitud(list) {
     if (isEmpty(list)) {
         return 0;
