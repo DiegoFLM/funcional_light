@@ -18,16 +18,7 @@ module.exports = { longitud, greatest, last, primeros};
 
 
 //7. Crear la lista de mejor a peor canción
-/* desOrdAtt: array string -> array
-Propósito: Recibe una lista de objetos y el nombre de un atributo, y devuelve una lista con los objetos de la lista recibida
-ordenados de mayor a menor según el valor del atributo especificado.
-function desOrdAtt (list) {
-*/
-/*
-function desOrdAtt (list, att){
-    ordDes(showRating(playlist));
-    
-}*/
+
 
 
 /* showRating: array -> list
@@ -68,15 +59,15 @@ function ordList (ratVals, list){
 
 //console.log (ordList([4, 5, 3, 2, 4, 5, 1, 5, 2, 3], playlist));
 
-/*  desOrdRat: array -> array
+/*  desOrdRatt: array -> array
     Propósito: Recibe la lista de objetos playlist y la devuelve ordenada de mayor rating a menor rating.
-    function desOrdRat(list){
+    function desOrdRatt(list){
 */
-function desOrdRat(list){
+function desOrdRatt(list){
     return    ordList( ordDes (showRating(playlist)) , playlist);
 }
 
-//console.log (desOrdRat(playlist));
+//console.log (desOrdRatt(playlist));
 
 /*  putFirstOnLast: array -> array
     propósito: recibe una lista y devuelve una lista de igual número de elementos, y casi en el mismo orden,
