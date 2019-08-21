@@ -1,16 +1,16 @@
 const { cons, first, rest, isEmpty, isList } = require('functional-light');
 const lista = [5, 9, 3, 4];
 const playlist =
-[{name:"Paranoid",          artist:"Black Sabbath",     album:"Live at last",       duration:172,   rating:4},
-{name:"Du hast",            artist:"Rammstein",         album:"Sehnsucht",          duration:260,   rating:5},
-{name:"Steel",              artist:"Pegboard nerds",    album:"Full hearts",        duration:258,   rating:3},
-{name:"Head of Nasa",       artist:"Infected mushroom", album:"Head of Nasa",       duration:465,   rating:2},
-{name:"Conquer or die",     artist:"Megadeth",          album:"Dystopia",           duration:314,   rating:4},
-{name:"Somebody to love",   artist:"Queen",             album:"A day at the Races", duration:309,   rating:5},
-{name:"Blues boys tune",    artist:"B.B King",          album:"Blus on the Bayau",  duration:442,   rating:1},
-{name:"Like a stone",       artist:"Audioslave",        album:"Like a stone",       duration:308,   rating:5},
-{name:"One",                artist:"Metallica",         album:"Justice for all",    duration:446,   rating:2},
-{name:"We will rock you",   artist:"Queen",             album:"News of the World",  duration:124,   rating:3} 
+[{name:"Beautiful Dangerous",   artist:"Slash",             album:"Slash (3)",              duration:275,   rating:4},
+{name:"The look of love",       artist:"Diana Krall",       album:"The Look Of Love",       duration:282,   rating:5},
+{name:"El idioma de los Dioses",artist:"Nach",              album:"Mejor que el silencio",  duration:253,   rating:3},
+{name:"Anatomía",               artist:"ZPU",               album:"He tenido un sueño",     duration:198,   rating:2},
+{name:"Victory",                artist:"Megadeth",          album:"Youthanasia",            duration:267,   rating:4},
+{name:"Lithium",                artist:"Nirvana",           album:"Nevermind",              duration:256,   rating:5},
+{name:"For the love of God",    artist:"Steve Vai",         album:"The Infinite Steve Vai: An Anthology",   duration:363,   rating:1},
+{name:"Welcome to the jungle",  artist:"Guns N' Roses",     album:"Apetite for destruction",                duration:271,   rating:5},
+{name:"Fire on the mountain",   artist:"Aṣa",               album:"Asa sampler",            duration:193,   rating:2},
+{name:"T.N.T.",                 artist:"AC/DC",             album:"T.N.T.",                 duration:342,   rating:3} 
 ];
 
 module.exports = { longitud, greatest, last, primeros};
