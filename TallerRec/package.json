@@ -1,0 +1,11 @@
+{
+  "name": "functional-light",
+  "version": "1.0.0",
+  "description": "",
+  "main": "21AGO19FdP.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "andcastillo",
+  "license": "MIT"
+}
