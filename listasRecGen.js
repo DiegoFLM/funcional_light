@@ -1,5 +1,12 @@
 const { cons, first, rest, isEmpty, append} = require('functional-light');
 
+
+
+
+const lista1 = [5, 9, 7, 8, 2, 8, 1];
+console.log("lista1: ", lista1);
+
+
 function time() {
 
     var today = new Date();
@@ -21,8 +28,7 @@ function itG(list, pivote) {
 }
 
 
-const lista1 = [5, 9, 7, 8, 2, 8, 1];
-console.log("lista1: ", lista1);
+
 //console.log(itG(lista1, 0));
 
 function itSOE(list, pivote) {
@@ -51,7 +57,7 @@ function quicksort(list) {
     }
 }
 
-console.log("quicksort(lista1): ", quicksort(lista1));
+//console.log("quicksort(lista1): ", quicksort(lista1));
 
 
 
@@ -68,12 +74,12 @@ function sortRecursionStructural(list) {
     }
 }
 
-console.log("sortRecursionStructural(lista1): ", sortRecursionStructural(lista1));
+//console.log("sortRecursionStructural(lista1): ", sortRecursionStructural(lista1));
 
 
 /*
 Recibir un elemento -n- y una lista -list- e insertar n en la lista delante 
-del primer elemento mayor o igual a n 
+del primer elemento menor o igual a n 
 */
 function insert(n, list) {
     if (isEmpty(list)) {
@@ -89,6 +95,33 @@ function insert(n, list) {
     }
 }
 
+
+
+
+/*filter: list function -> list
+Recibe una lista y una función que comprueba una cierta condición (esta función devuelve valores booleanos), y devuelve una lista con los elementos que cumplen la condición.
+*/
+
+function filter(list, f) {
+    if (isEmpty(list)) {
+        return [];
+    }
+    else if (f(first(list))) {
+        return cons(first(list), filter(rest(list), f))
+    }
+    else {
+        return filter(rest(list), f);
+    }
+}
+
+function isPair (n){
+    if ( n % 2 == 0 ){
+        return true;
+    }else
+    return false;
+}
+
+console.log("filter(list, isPair): ", filter(lista1, isPair));
 
 
 
