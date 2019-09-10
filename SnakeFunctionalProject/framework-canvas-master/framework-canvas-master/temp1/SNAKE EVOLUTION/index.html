@@ -1,0 +1,214 @@
+<head>
+  <style>
+    @font-face {
+    font-family: 'Retro Gaming';
+    src: url('RetroGaming.woff2') format('woff2'),
+        url('RetroGaming.woff') format('woff'),
+        url('RetroGaming.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+    </style>
+    
+</head>
+<canvas id="canvas" width="300" height="300"></canvas>
+<script src="web-lib/processing.js"></script>
+<script src="web-lib/functional-light.js"></script>
+<script src="web-lib/buzz.min.js"></script>
+
+<script>
+  //Vamos a usar http://processingjs.org/
+  // Importamos las librerias
+  let { append, cons, first, isEmpty, isList, length, rest } = functionalLight;
+  function make(data, attribute) {
+    return Object.assign({}, data, attribute);
+  }
+  
+  function sketchProc(processing) {
+    /**
+     * Esto se llama antes de iniciar el juego
+     */
+    processing.setup = function () {
+      document.getElementById("canvas").focus();
+      processing.frameRate(60);
+      processing.size(window.innerWidth-20, window.innerHeight-20);
+      processing.background(10, 200, 50);
+      
+      MyFont = processing.createFont("Retro Gaming");
+      processing.state = {title: {rgb: [0,255,0],font: processing.createFont("Retro Gaming")},frame: 0, play: true,
+      sound: new buzz.sound("web-lib/s1",{formats: ["mp3"],autoplay: true,preload: true,volume: 50}),
+      select: new buzz.sound("web-lib/menu_select",{formats: ["mp3"]}),
+      move: new buzz.sound("web-lib/menu_move",{formats: ["mp3"],volume: 100}),
+
+       state: "opening", selection: 1, limit: 1};
+    }
+    /**
+    * Actualiza el mundo en cada tic del reloj. Retorna el nuevo stado del mundo
+    */
+    processing.onTic = function (world) {
+      
+      if (world.frame<27)
+      {
+      return make(world, {title: make(world.title,{rgb: titlecolor(world.title.rgb)}),frame: world.frame+1,play: true});
+      }
+      return make(world, {title: make(world.title,{rgb: titlecolor(world.title.rgb)}),frame: 0});
+    }
+
+    function titlecolor(color)
+    {
+        if(color[0]==255&&color[1]<255&&color[2]==0)
+        {
+            return cons(color[0],cons(color[1]+1,rest(rest(color))));
+        }
+        if(color[0]>0&&color[1]==255)
+        {
+            return cons(color[0]-1,cons(color[1],rest(rest(color))));
+        }
+        if(color[1]==255&&color[2]<255)
+        {
+            return cons(color[0],cons(color[1],[color[2]+1]));
+        }
+        if(color[1]>0&&color[2]==255)
+        {
+            return cons(color[0],cons(color[1]-1,[color[2]]));
+        }
+        if(color[0]<255&&color[2]==255)
+        {
+            return cons(color[0]+1,cons(color[1],[color[2]]));
+        }
+        if(color[0]==255&&color[2]>0)
+        {
+            return cons(color[0],cons(color[1],[color[2]-1]));
+        }
+    }
+    /**
+    * Actualiza el mundo cada vez que se oprime una tecla. Retorna el nuevo stado del mundo
+    */
+    processing.onKeyEvent = function (world, keyCode) {
+      switch(keyCode)
+      {
+        case processing.ENTER:
+        world.select.play();
+        switch(world.state)
+        {
+          case "opening":
+
+           return make(world,{state: "main menu",limit: 2});
+           break;
+          case "main menu":
+            switch (world.selection)
+            {
+              case 1:
+                window.open("SnakeVsAlien.html","_self");
+		break;
+              case 2:
+                window.open("GalaxySnake.html","_self");
+		break;
+            }
+            break;
+        }
+        
+        break;
+        case processing.LEFT:
+        world.move.play();
+          if(world.selection<=1)
+          {
+            return make(world,{selection: world.limit})
+          }
+          return make(world,{selection: world.selection-1})
+        break;
+        
+        case processing.RIGHT:
+        world.move.play();
+          if(world.selection>=world.limit)
+          {
+            return make(world,{selection: 1})
+          }
+          return make(world,{selection: world.selection+1})
+        break;
+      }
+      return make(world,{});
+    }
+    // Dibuja algo en el canvas. Aqui se pone todo lo que quieras pintar
+    processing.drawGame = function (world) {
+      processing.background(0, 0, 0);
+      processing.fill(world.title.rgb[0], world.title.rgb[1], world.title.rgb[2]);
+      var fontList = PFont.list();
+      
+      processing.textFont(world.title.font);
+      processing.textSize(window.innerHeight/90*window.innerWidth/90);
+      processing.textAlign(processing.CENTER,processing.CENTER);
+      processing.text("SNAKE EVOLUTION",(window.innerWidth-20)/2,(window.innerHeight-20)/4);
+      switch (world.state)
+      {
+        case "opening":
+          if(world.frame<13.5)
+          {
+            processing.fill(255,255,255)
+          }
+          else{
+            processing.fill(255,255,0)
+          }
+          processing.textSize(window.innerHeight/120*window.innerWidth/120)
+          processing.text("PLAY",window.innerWidth/2,window.innerHeight*2/3)
+          break;
+        case "main menu":
+          switch (world.selection)
+          {
+            case 1:
+            if(world.frame<13.5)
+          {
+            processing.fill(255,255,255)
+          }
+          else{
+            processing.fill(255,255,0)
+          }
+          processing.textSize(window.innerHeight/120*window.innerWidth/120)
+          processing.text("ALIEN\nVS\nSNAKE",window.innerWidth/3,window.innerHeight*2/3)
+          processing.fill(255,255,255)
+          processing.textSize(window.innerHeight/120*window.innerWidth/120)
+          processing.text("GALAXY\n\SNAKE",window.innerWidth*2/3,window.innerHeight*2/3)
+          break;
+          case 2:
+          processing.fill(255,255,255)
+          processing.textSize(window.innerHeight/120*window.innerWidth/120)
+          processing.text("ALIEN\nVS\nSNAKE",window.innerWidth/3,window.innerHeight*2/3)
+          
+          if(world.frame<13.5)
+          {
+            processing.fill(255,255,255)
+          }
+          else{
+            processing.fill(255,255,0)
+          }
+          processing.textSize(window.innerHeight/120*window.innerWidth/120)
+          processing.text("GALAXY\n\SNAKE",window.innerWidth*2/3,window.innerHeight*2/3)
+          break;
+          }
+          
+          break;
+      }
+      processing.fill(255,255,255)
+      processing.textSize(window.innerHeight/32)
+      processing.textAlign(processing.CENTER);
+      processing.text("©NOOB GAMES 2019",(window.innerWidth-20)*9/10,(window.innerHeight-20)*99/100);
+      world.sound.play();
+      
+    }
+    // Esta es la función que pinta todo. Se ejecuta 60 veces por segundo. 
+    // No cambie esta función. Su código debe ir en drawGame
+    processing.draw = function () {
+      
+      processing.drawGame(processing.state);
+      processing.state = processing.onTic(processing.state);
+    };
+    // Esta función se ejecuta cada vez que presionamos una tecla. 
+    // No cambie esta función. Su código debe ir en onKeyEvent
+    processing.keyPressed = function () {
+      processing.state = processing.onKeyEvent(processing.state, processing.keyCode);
+    }
+  }
+  var canvas = document.getElementById("canvas");
+  // Adjuntamos nuestro sketch al framework de processing
+  var processingInstance = new Processing(canvas, sketchProc);
+</script>
